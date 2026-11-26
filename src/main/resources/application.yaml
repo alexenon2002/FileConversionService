@@ -1,0 +1,33 @@
+spring:
+  application:
+    name: FileConversionService
+  datasource:
+    url: jdbc:postgresql://localhost:5433/FileConversionService
+    username: postgres
+    password: postgres
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: file-conversion-service
+      auto-offset-reset: earliest
+      enable-auto-commit: false
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    listener:
+      ack-mode: record
+    producer:
+      acks: all
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+  task:
+    scheduling:
+      pool:
+        size: 2
+app:
+  minio:
+    endpoint: ${MINIO_ENDPOINT:http://localhost:9000}
+    access-key: ${MINIO_ROOT_USER}
+    secret-key: ${MINIO_ROOT_PASSWORD}
+  kafka:
+    request-topic: conversion-requests
+    result-topic: conversion-results
