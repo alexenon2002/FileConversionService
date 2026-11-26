@@ -1,0 +1,10 @@
+spring:
+  kafka:
+    listener:
+      auto-startup: false
+
+app:
+  inbox:
+    polling-enabled: false
+  outbox:
+    publishing-enabled: false
